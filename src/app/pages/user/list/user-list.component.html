@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="header">
+    <div class="col col-10">
+      <h3>{{ getMessageResult() }} </h3>
+    </div>
+    <div class="col col-2">
+      <button type="button" class="btn btn-light" (click)="openModalFilter()">
+        Filtros
+      </button>
+      <button type="button" class="btn btn-primary" (click)="openNew()">
+        Novo
+      </button>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col col-12">
+    <div class="card" *ngFor="let item of queryResult?.list">
+      <div class="card-body">
+        <div class="row">
+          <div class="col col-10">
+            <h5 class="card-title">{{ item.name }} {{ item.lastName }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ item.email }}
+              <span class="badge badge-pill badge-primary">Data de Nascimento: {{ item.birthDateFormat }}</span>
+              <span class="badge badge-pill badge-primary">Escolaridade: {{ item.schoolingDescription }}</span>            
+            </h6>
+          </div>
+          <div class="col col-2">
+            <div class="btn-group" dropdown>
+              <button id="button-basic"  dropdownToggle type="button" 
+                class="btn btn-primary dropdown-toggle btn-sm" aria-controls="dropdown-basic">
+                Mais Opções <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" (click)="edit(item)">Editar</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="detail(item)">Detalhes</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="openModalDelete(item)">Excluir</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-12" *ngIf="queryResult.numberOfRecords">
+    <pagination 
+      [totalItems]="queryResult.numberOfRecords" 
+      [itemsPerPage]="queryResult.quantityPerPage" 
+      [(ngModel)]="queryResult.page" 
+      (pageChanged)="pageChanged($event)"
+      previousText="Anterior" 
+      nextText="Próxima">
+    </pagination>
+  </div>
+</div>
+
+<ng-template #modalDelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Alerta!</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalDelete()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Tem certeza que deseja excluir?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="delete()">Excluir</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModalDelete()">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalSuccess>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Sucesso!</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalSuccess()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Excluido com sucesso!
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModalSuccess()">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalFilter>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Filtrar</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalFilter()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form novalidate>
+      <div class="form-group">
+        <label for="inputName">Nome</label>
+        <input type="text" class="form-control" id="inputName" name="inputName" [(ngModel)]="userFilter.name">
+      </div>
+      <div class="form-group">
+        <label for="inputLastName">Sobrenome</label>
+        <input type="text" class="form-control" id="inputLastName" name="inputLastName" [(ngModel)]="userFilter.lastName">
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="text" class="form-control" id="inputEmail" name="inputEmail" [(ngModel)]="userFilter.email">
+      </div>
+      <div class="form-group">
+        <label for="inputSchooling">Escolaridade</label>
+        <select class="form-control" id="inputSchooling" name="inputSchooling" [(ngModel)]="userFilter.schoolingId">
+          <option value="">Todos</option>
+          <option [value]="item.id" *ngFor="let item of schooling">{{ item.description }}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="filter()">Filtrar</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModalFilter()">Fechar</button>
+  </div>
+</ng-template>
+

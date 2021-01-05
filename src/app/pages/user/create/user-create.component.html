@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col col-3"></div>
+  <div class="col col-6">
+    <form (ngSubmit)="save()" [formGroup]="form" novalidate>
+      <div class="form-group">
+        <label for="inputName">Nome</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Digite seu nome" formControlName="name">
+        <div class="invalid-feedback">
+          Por favor digite um nome válido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputLastName">Sobrenome</label>
+        <input type="text" class="form-control" id="inputLastName" placeholder="Digite seu sobrenome" formControlName="lastName">
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="text" class="form-control" id="inputEmail" placeholder="Digite seu email" formControlName="email">
+        <div class="invalid-feedback">
+          Por favor digite um email válido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputBirthDate">Data de Nascimento</label>
+        <input type="text" class="form-control" id="inputBirthDate" mask="d0/M0/0000" [dropSpecialCharacters]="false" placeholder="Digite sua data de nascimento" formControlName="birthDate">
+        <div class="invalid-feedback">
+          Por favor digite uma data de nascimento válido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSchooling">Escolaridade</label>
+        <select class="form-control" id="inputSchooling" formControlName="schoolingId">
+          <option [value]="item.id" *ngFor="let item of schooling">{{ item.description }}</option>
+        </select>
+        <div class="invalid-feedback">
+          Escolha uma escolaridade válido.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ user ? 'Atualizar' : 'Salvar' }}</button>
+      <a class="btn btn-light" (click)="back()">Voltar</a>
+    </form>
+  </div>
+  <div class="col col-3"></div>
+</div>
+
+<ng-template #modalSuccess>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Sucesso!</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalSuccess()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{ user ? 'Atualizado' : 'Salvo' }} com sucesso!
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModalSuccess()">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalError>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Alerta!</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalError()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor="let item of errors">
+      {{ item }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModalError()">Fechar</button>
+  </div>
+</ng-template>

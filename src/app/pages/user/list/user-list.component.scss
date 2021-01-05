@@ -1,0 +1,24 @@
+.header {
+    margin-top: 50px;
+    display: flex;
+    width: 100%;
+
+    .btn {
+        margin-left: 10px;
+    }
+}
+
+.card {
+    margin-bottom: 10px;
+}
+.card-body {
+    padding: 15px;
+}
+
+.badge  {
+    margin-right: 5px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}

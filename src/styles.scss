@@ -1,0 +1,19 @@
+@import './assets/scss/toast.scss';
+
+::-webkit-scrollbar {
+  width: 6px!important;
+  height: 6px!important
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(0,0%,100%,.16);
+}
+
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+span.badge.new:after {
+  display: none;
+}

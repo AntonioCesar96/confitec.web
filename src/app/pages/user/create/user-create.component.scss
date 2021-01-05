@@ -1,0 +1,13 @@
+form {
+    margin-top: 50px;
+}
+
+form .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input.ng-touched.ng-invalid ~ .invalid-feedback,
+select.ng-touched.ng-invalid ~ .invalid-feedback {
+    display: block;
+}
