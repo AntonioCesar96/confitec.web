@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
 import { UserListComponent } from './pages/user/list/user-list.component';
 import { UserCreateComponent } from './pages/user/create/user-create.component';
 import { UserDetailComponent } from './pages/user/detail/user-detail.component';
@@ -19,7 +18,6 @@ import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     UserListComponent,
     UserCreateComponent,
     UserDetailComponent,
